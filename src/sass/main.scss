@@ -1,3 +1,6 @@
+@use './utils//reset';
+@import 'normalize.css';
+
 body {
     background-color: rgb(255, 196, 245);
 }
