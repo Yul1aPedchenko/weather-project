@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useAuth } from "../../context/AuthContext";
+
 import { Container } from "../Container/Container";
 import { MobileMenu } from "./MobileMenu/MobileMenu";
 import { AuthModal } from "../AuthModal/AuthModal";
@@ -11,6 +13,8 @@ import { IoIosArrowDown } from "react-icons/io";
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const { user } = useAuth();
 
   return (
     <>
@@ -38,9 +42,13 @@ export const Header = () => {
               </ul>
             </nav>
             <div className={styles.header__actions}>
-              <button className={styles.header__signup} onClick={() => setIsModalOpen(!isModalOpen)}>
-                Sign Up
-              </button>
+              {user ? (
+                <p>{user.username}</p>
+              ) : (
+                <button className={styles.header__signup} onClick={() => setIsModalOpen(!isModalOpen)}>
+                  Sign Up
+                </button>
+              )}
               <img className={styles.header__user} src={User} alt="user avatar" />
             </div>
             <div className={styles.header__mobile}>
@@ -52,7 +60,7 @@ export const Header = () => {
           </div>
         </Container>
       </header>
-      <MobileMenu isMenuOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} onClick= {() => setIsModalOpen(!isModalOpen)} />
+      <MobileMenu isMenuOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} onClick={() => setIsModalOpen(!isModalOpen)} />
       <AuthModal isModalOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>
   );
