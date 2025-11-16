@@ -40,9 +40,7 @@ export const AuthModal = ({ isModalOpen, onClose }) => {
       alert("Invalid email or password");
     }
   };
-  if (!API_URL) {
-  throw new Error("VITE_MOKAPI is not defined. Check environment variables.");
-}
+  
   return (
     <div className={`${styles.overlay} ${isModalOpen ? "" : styles.hidden}`} onClick={onClose}>
       <div className={`${styles.modal} ${isModalOpen ? "" : styles.active}`} onClick={(e) => e.stopPropagation()}>
