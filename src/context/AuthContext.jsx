@@ -60,7 +60,9 @@ export const AuthProvider = ({ children }) => {
       return false;
     }
   };
-
+  if (!API_URL) {
+  throw new Error("VITE_MOKAPI is not defined. Check environment variables.");
+}
   const updateUser = (updatedUser) => setUser(updatedUser);
   return <AuthContext.Provider value={{ user, signin, signup, updateUser, localRecents, setLocalRecents }}>{children}</AuthContext.Provider>;
 };
