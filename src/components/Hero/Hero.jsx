@@ -4,6 +4,7 @@ import { getWeatherByCity } from "../../api/weatherAPI";
 import { addCityToRecents } from "../../api/userAPI";
 
 import { Container } from "../Container/Container";
+import { CurrentDate } from "./CurrentDate/CurrentDate";
 import styles from "./Hero.module.scss";
 import { IoSearchOutline } from "react-icons/io5";
 
@@ -28,13 +29,14 @@ export const Hero = () => {
         dt: cityData.dt,
         id: cityData.id,
       };
-
+      console.log(user)
       if (user) {
         const filtered = user.recents.filter(c => c.name.toLowerCase() !== city.name.toLowerCase());
         const newRecents = [city, ...filtered];
         await addCityToRecents(user.id, newRecents);
         updateUser({ ...user, recents: newRecents });
       } else {
+        console.log("else")
         const filtered = localRecents.filter(c => c.name.toLowerCase() !== city.name.toLowerCase());
         setLocalRecents([city, ...filtered]);
       }
@@ -49,9 +51,9 @@ export const Hero = () => {
   return (
     <section className={styles.hero}>
       <Container>
-        <div>
-          <h1>Weather dashboard</h1>
-
+        <div className={styles.hero__wrapper}>
+          <h1 className={styles.hero__title}>Weather dashboard</h1>
+          <CurrentDate />
           <form onSubmit={handleSearch}>
             <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search location..." />
             <button type="submit">

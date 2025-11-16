@@ -1,0 +1,109 @@
+@import "../../scss/utils/variables.scss";
+@import "../../scss/utils/mixins.scss";
+
+.footer {
+  background-color: $secondaryBgColor;
+  padding: 20px 0;
+  &__wrapper {
+    display: flex;
+    align-items: start;
+    position: relative;
+  }
+  &__logo {
+    display: flex;
+    width: 50px;
+    position: absolute;
+  }
+  &__icon {
+    filter: brightness(0) invert(1);
+  }
+  &__wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    gap: 25px;
+  }
+  &__subwrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+  &__subwrap:first-child {
+    align-items: flex-start;
+    justify-content: center;
+  }
+  &__title {
+    color: $secondaryTextColor;
+    @include typography(Montserrat Alternates, 500, 12px);
+  }
+  &__link {
+    color: $secondaryTextColor;
+    @include typography(Montserrat Alternates, 500, 8px);
+    display: flex;
+    width: 62px;
+  }
+  &__list {
+    display: flex;
+    gap: 20px;
+  }
+  &__sm {
+    width: 35px;
+    display: flex;
+  }
+}
+
+@include tablet {
+  .footer {
+    padding: 35px 0;
+    &__wrapper {
+      gap: 100px;
+    }
+    &__logo {
+      position: relative;
+      width: 58px;
+    }
+    &__wrap {
+      flex-direction: row;
+      align-items: start;
+      margin: 0;
+      gap: 100px;
+    }
+    &__subwrap {
+      align-items: flex-start;
+    }
+    &__title {
+      @include typography(Montserrat Alternates, 500, 14px);
+    }
+    &__link {
+      @include typography(Montserrat Alternates, 500, 10px);
+      width: 77px;
+    }
+  }
+}
+
+@include desktop() {
+  .footer {
+    padding: 40px 0 65px 0;
+    &__wrapper {
+      gap: 103px;
+    }
+    &__logo {
+      width: 90px;
+    }
+    &__wrap {
+      gap: 103px;
+    }
+    &__title {
+      @include typography(Montserrat Alternates, 500, 16px);
+    }
+    &__link {
+      @include typography(Montserrat Alternates, 500, 12px);
+      width: 92px;
+    }
+    &__sm {
+      width: 40px;
+    }
+  }
+}

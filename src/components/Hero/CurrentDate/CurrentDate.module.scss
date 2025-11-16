@@ -1,0 +1,42 @@
+@import "../../../scss/utils/variables.scss";
+@import "../../../scss/utils/mixins.scss";
+
+.date {
+  display: flex;
+  gap: 25px;
+  margin-bottom: 48px;
+  &__line {
+    border: 1px solid #000;
+    height: 80px;
+    width: 0px;
+  }
+  &__wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  &__cur {
+    @include typography(Montserrat, 500, 10px);
+  }
+  &__title {
+    @include typography(Montserrat, 500, 10px);
+    width: 140px;
+  }
+  &__subwrap {
+    display: flex
+  }
+  &__suffix {
+    @include typography(Montserrat, 500, 7px);
+    align-items: start;
+    margin-bottom: 5px;
+  }
+}
+
+@include tablet() {
+  .date {
+    gap: 0;
+    position: relative;
+    &__title {
+    }
+  }
+}

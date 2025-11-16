@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
 
 const AuthContext = createContext();
@@ -14,50 +14,52 @@ export const AuthProvider = ({ children }) => {
       return [];
     }
   });
-
+  useEffect(() => {
+    if (!user) {
+      localStorage.setItem("recents", JSON.stringify(localRecents));
+    }
+  }, [localRecents, user]);
   const signin = async ({ email, password }) => {
-  try {
-    const res = await axios.get(`${API_URL}/users`);
-    const allUsers = res.data;
+    try {
+      const res = await axios.get(`${API_URL}/users`);
+      const allUsers = res.data;
 
-    const foundUser = allUsers.find(
-      (u) => u.email === email && u.password === password
-    );
+      const foundUser = allUsers.find((u) => u.email === email && u.password === password);
 
-    if (!foundUser) throw new Error("Invalid password or email");
+      if (!foundUser) throw new Error("Invalid password or email");
 
-    setUser(foundUser);
-    return true;
-  } catch (err) {
-    console.log(err);
-    return false;
-  }
-};
+      setUser(foundUser);
+      return true;
+    } catch (err) {
+      console.log(err);
+      return false;
+    }
+  };
 
   const signup = async ({ username, email, password }) => {
-  try {
-    const res = await axios.get(`${API_URL}/users`);
-    const allUsers = res.data;
+    try {
+      const res = await axios.get(`${API_URL}/users`);
+      const allUsers = res.data;
 
-    const exists = allUsers.some((u) => u.email === email);
-    if (exists) throw new Error("User already exists");
+      const exists = allUsers.some((u) => u.email === email);
+      if (exists) throw new Error("User already exists");
 
-    const newUser = {
-      username,
-      email,
-      password,
-      recents: [],
-      favourites: [],
-    };
+      const newUser = {
+        username,
+        email,
+        password,
+        recents: [],
+        favourites: [],
+      };
 
-    const createRes = await axios.post(`${API_URL}/users`, newUser);
-    setUser(createRes.data);
-    return true;
-  } catch (err) {
-    console.log(err);
-    return false;
-  }
-};
+      const createRes = await axios.post(`${API_URL}/users`, newUser);
+      setUser(createRes.data);
+      return true;
+    } catch (err) {
+      console.log(err);
+      return false;
+    }
+  };
 
   const updateUser = (updatedUser) => setUser(updatedUser);
   return <AuthContext.Provider value={{ user, signin, signup, updateUser, localRecents, setLocalRecents }}>{children}</AuthContext.Provider>;
