@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("recents", JSON.stringify(localRecents));
     }
   }, [localRecents, user]);
-  const signin = async ({ email, password }) => {
+  const login = async ({ email, password }) => {
     try {
       const res = await axios.get(`${API_URL}/users`);
       const allUsers = res.data;
@@ -61,7 +61,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
   const updateUser = (updatedUser) => setUser(updatedUser);
-  return <AuthContext.Provider value={{ user, signin, signup, updateUser, localRecents, setLocalRecents }}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ user, login, signup, updateUser, localRecents, setLocalRecents }}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = () => useContext(AuthContext);

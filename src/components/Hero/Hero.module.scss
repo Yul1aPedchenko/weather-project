@@ -2,15 +2,144 @@
 @import "../../scss/utils/mixins.scss";
 
 .hero {
+  padding: 50px 0 100px 0;
+  background-image: $overlay, url("../../images/hero/bg@1x.png");
+  background-repeat: no-repeat;
+  background-size: cover;
   &__wrapper {
     display: flex;
     flex-direction: column;
-    align-items: center
-    // gap: 80px;
+    align-items: center;
   }
   &__title {
-    @include typography(Montserrat , 600, 14px);
+    @include typography(Montserrat, 600, 14px);
     margin-bottom: 35px;
+    color: $secondaryTextColor;
   }
-  
+  &__form {
+    display: flex;
+  }
+  &__input {
+    @include typography(Montserrat, 500, 6px);
+    padding: 4px 100px 4px 10px;
+    border-radius: 5px 0 0 5px;
+    border: none;
+  }
+  &__btn {
+    background-color: $accentColor;
+    height: auto;
+    display: flex;
+    align-items: center;
+    float: left;
+    padding: 2px;
+    border-radius: 0 5px 5px 0;
+    border: 1px solid $accentColor;
+    transition: $ts;
+  }
+  &__btn:hover {
+    background-color: transparent;
+  }
+  &__btn svg {
+    color: $mainBgColor;
+  }
+}
+@supports (background-image: $overlay, url("../../images/hero/bg@1x.webp")) {
+  .hero {
+    background-image: $overlay, url("../../images/hero/bg@1x.webp");
+    background-size: cover;
+  }
+}
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-device-pixel-ratio: 2), (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+  .hero {
+    background-image: $overlay, url("../../images/hero/bg@2x.png");
+    background-size: cover;
+  }
+  @supports (background-image: $overlay, url("../../images/hero/bg@2x.webp")) {
+    .hero {
+      background-image: $overlay, url("../../images/hero/bg@2x.webp");
+      background-size: cover;
+    }
+  }
+}
+
+@include tablet {
+  .hero {
+    background-image: $overlay, url("../../images/hero/bg-tablet@1x.png");
+    padding: 40px 0;
+    &__title {
+      @include typography(Montserrat, 600, 20px);
+      margin-bottom: 40px;
+    }
+    &__input {
+      @include typography(Montserrat, 500, 10px);
+      padding: 8px 270px 8px 20px;
+    }
+    &__btn {
+      padding: 5px 6px;
+    }
+    &__btn svg {
+      width: 16px;
+      height: 16px;
+      color: $mainBgColor;
+    }
+  }
+  @supports (background-image: $overlay, url("../../images/hero/bg-tablet@1x.webp")) {
+    .hero {
+      background-image: $overlay, url("../../images/hero/bg-tablet@1x.webp");
+      background-size: cover;
+    }
+  }
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-device-pixel-ratio: 2), (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+    .hero {
+      background-image: $overlay, url("../../images/hero/bg-tablet@2x.png");
+      background-size: cover;
+    }
+    @supports (background-image: $overlay, url("../../images/hero/bg-tablet@2x.webp")) {
+      .hero {
+        background-image: $overlay, url("../../images/hero/bg-tablet@2x.webp");
+        background-size: cover;
+      }
+    }
+  }
+}
+
+@include desktop() {
+  .hero {
+     background-image: $overlay, url("../../images/hero/bg-desktop@1x.png");
+    padding: 100px 0;
+    &__title {
+      @include typography(Montserrat, 600, 40px);
+      margin-bottom: 80px;
+    }
+    &__input {
+      @include typography(Montserrat, 500, 14px);
+      padding: 13px 432px 12px 30px;
+    }
+    &__btn {
+      padding: 9px 10px;
+    }
+    &__btn svg {
+      width: 25px;
+      height: 25px;
+      color: $mainBgColor;
+    }
+  }
+  @supports (background-image: $overlay, url("../../images/hero/bg-desktop@1x.webp")) {
+    .hero {
+      background-image: $overlay, url("../../images/hero/bg-desktop@1x.webp");
+      background-size: cover;
+    }
+  }
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-device-pixel-ratio: 2), (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+    .hero {
+      background-image: $overlay, url("../../images/hero/bg-desktop@2x.png");
+      background-size: cover;
+    }
+    @supports (background-image: $overlay, url("../../images/hero/bg-desktop@2x.webp")) {
+      .hero {
+        background-image: $overlay, url("../../images/hero/bg-desktop@2x.webp");
+        background-size: cover;
+      }
+    }
+  }
 }

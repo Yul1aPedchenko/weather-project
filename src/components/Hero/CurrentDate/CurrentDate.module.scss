@@ -3,10 +3,13 @@
 
 .date {
   display: flex;
-  gap: 25px;
   margin-bottom: 48px;
+  &__wrapper {
+    display: flex;
+    gap: 25px;
+  }
   &__line {
-    border: 1px solid #000;
+    border: 1px solid $secondaryTextColor;
     height: 80px;
     width: 0px;
   }
@@ -14,20 +17,22 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+    height: 80px;
   }
   &__cur {
     @include typography(Montserrat, 500, 10px);
+    color: $secondaryTextColor;
   }
   &__title {
     @include typography(Montserrat, 500, 10px);
+    color: $secondaryTextColor;
     width: 140px;
   }
   &__subwrap {
-    display: flex
+    display: flex;
   }
   &__suffix {
     @include typography(Montserrat, 500, 7px);
-    align-items: start;
     margin-bottom: 5px;
   }
 }
@@ -35,6 +40,58 @@
 @include tablet() {
   .date {
     gap: 0;
-    position: relative;
+    margin-bottom: 64px;
+    &__wrapper {
+      position: relative;
+    }
+    &__line {
+      position: absolute;
+      top: 0;
+      left: 206px;
+      height: 110px;
+    }
+    &__wrap {
+      flex-direction: row;
+      gap: 68px;
+      height: 110px;
+    }
+    &__title {
+      text-align: right;
+      @include typography(Montserrat, 500, 14px);
+      width: 172px;
+    }
+    &__cur {
+      @include typography(Montserrat, 500, 14px);
+      width: 172px;
+    }
+    &__suffix {
+      @include typography(Montserrat, 500, 10px);
+    }
+  }
+}
+
+@include desktop() {
+  .date {
+    margin-bottom: 80px;
+    &__line {
+      height: 144px;
+      left: 397px;
+    }
+    &__wrap {
+      height: 144px;
+      gap: 104px;
+    }
+    &__title {
+      text-align: right;
+      @include typography(Montserrat, 500, 24px);
+      width: 345px;
+    }
+    &__cur {
+      @include typography(Montserrat, 500, 24px);
+      width: 345px;
+    }
+    &__suffix {
+      @include typography(Montserrat, 500, 17px);
+    }
   }
 }

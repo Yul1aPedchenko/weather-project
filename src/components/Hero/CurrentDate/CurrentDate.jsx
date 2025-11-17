@@ -31,17 +31,18 @@ export const CurrentDate = () => {
   const daysSuffix = `${getSuffix(day)}`;
   return (
     <div className={styles.date}>
-      <div className={styles.date__line}></div>
-      <div className={styles.date__wrap}>
-        <h2 className={styles.date__title}>Create your personal list of favorite cities and always be aware of the weather.</h2>
-
-        <div className={styles.date__cur}>
-          <p>{monthYear}</p>
-          <div className={styles.date__subwrap}>
-            <p>
-              {weekday}, {day}
-            </p>
-            <span className={styles.date__suffix}>{daysSuffix}</span>
+      <div className={styles.date__wrapper}>
+        <div className={styles.date__line}></div>
+        <div className={styles.date__wrap}>
+          <h2 className={styles.date__title}>Create your personal list of favorite cities and always be aware of the weather.</h2>
+          <div className={styles.date__cur}>
+            <p>{monthYear}</p>
+            <div className={styles.date__subwrap}>
+              <p>
+                {weekday}, {day}
+              </p>
+              <span className={styles.date__suffix}>{daysSuffix}</span>
+            </div>
           </div>
         </div>
       </div>

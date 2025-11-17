@@ -1,3 +1,6 @@
+@import "../../scss/utils/variables.scss";
+@import "../../scss/utils/mixins.scss";
+
 .modal {
   position: fixed;
   top: 50%;
@@ -5,7 +8,61 @@
   transform: translate(-50%, -50%);
   z-index: 101;
   transition: all 250ms ease-in-out;
-  background-color: wheat;
+  background-color: $mainBgColor;
+  padding: 25px;
+  border-radius: 25px;
+  &__title {
+    @include typography(Montserrat Alternates, 500, 20px);
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  &__form {
+    display: flex;
+    flex-direction: column;
+  }
+  &__label {
+    @include typography(Montserrat Alternates, 500, 12px);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 25px;
+  }
+  &__input {
+    background-color: $inputBg;
+    @include typography(Montserrat, 500, 12px);
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    width: 243px;
+  }
+  &__submit {
+    @include typography(Montserrat, 400, 12px);
+    padding: 10px 30px;
+    border: 1px solid $accentColor;
+    background-color: $accentColor;
+    color: $secondaryTextColor;
+    border-radius: 10px;
+    transition: $ts;
+    margin: 0 auto;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    width: 110px;
+  }
+  &__submit:hover {
+    background-color: transparent;
+    color: $mainTextColor;
+  }
+  &__btn {
+    background-color: transparent;
+    transition: $ts;
+    @include typography(Montserrat, 500, 8px);
+  }
+  &__btn:hover {
+    color: $accentColor;
+  }
+  &__span {
+    text-decoration: underline;
+  }
 }
 
 .overlay {
