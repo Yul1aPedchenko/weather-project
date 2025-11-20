@@ -34,6 +34,11 @@
     padding: 12px 20px;
     border-radius: 10px;
     width: 243px;
+    transition: $ts;
+  }
+  &__input:focus {
+    outline: 1px solid $accentColor;
+    color: $accentColor;
   }
   &__submit {
     @include typography(Montserrat, 400, 12px);
@@ -81,4 +86,38 @@
 .hidden {
   opacity: 0;
   pointer-events: none;
+}
+
+@include tablet() {
+  .modal {
+    padding: 45px;
+    &__input {
+      width: 310px;
+    }
+  }
+}
+@include desktop() {
+  .modal {
+    padding: 30px 80px;
+    &__title {
+      @include typography(Montserrat, 500, 28px);
+      margin-bottom: 40px;
+    }
+    &__label {
+      @include typography(Montserrat Alternates, 500, 14px);
+      margin-bottom: 30px;
+    }
+    &__input {
+      @include typography(Montserrat Alternates, 500, 14px);
+      width: 440px;
+      padding: 16px 20px;
+    }
+    &__submit {
+      @include typography(Montserrat, 400, 14px);
+      width: 120px;
+    }
+    &__btn {
+      @include typography(Montserrat, 500, 10px);
+    }
+  }
 }
