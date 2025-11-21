@@ -3,9 +3,10 @@
 
 .hero {
   padding: 50px 0 100px 0;
-  background-image: $overlay, url("../../images/hero/bg@1x.png");
+  background-image: $overlay, url("../../images/hero/bg-6@1x.jpg");
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
   &__wrapper {
     display: flex;
     flex-direction: column;
@@ -43,28 +44,28 @@
     color: $mainBgColor;
   }
 }
-@supports (background-image: $overlay, url("../../images/hero/bg@1x.webp")) {
-  .hero {
-    background-image: $overlay, url("../../images/hero/bg@1x.webp");
-    background-size: cover;
-  }
-}
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-device-pixel-ratio: 2), (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
-  .hero {
-    background-image: $overlay, url("../../images/hero/bg@2x.png");
-    background-size: cover;
-  }
-  @supports (background-image: $overlay, url("../../images/hero/bg@2x.webp")) {
-    .hero {
-      background-image: $overlay, url("../../images/hero/bg@2x.webp");
-      background-size: cover;
-    }
-  }
-}
+// @supports (background-image: $overlay, url("../../images/hero/bg@1x.webp")) {
+//   .hero {
+//     background-image: $overlay, url("../../images/hero/bg@1x.webp");
+//     background-size: cover;
+//   }
+// }
+// @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-device-pixel-ratio: 2), (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+//   .hero {
+//     background-image: $overlay, url("../../images/hero/bg@2x.png");
+//     background-size: cover;
+//   }
+//   @supports (background-image: $overlay, url("../../images/hero/bg@2x.webp")) {
+//     .hero {
+//       background-image: $overlay, url("../../images/hero/bg@2x.webp");
+//       background-size: cover;
+//     }
+//   }
+// }
 
 @include tablet {
   .hero {
-    background-image: $overlay, url("../../images/hero/bg-tablet@1x.png");
+    background-image: $overlay, url("../../images/hero/bg-6@1x.jpg");
     padding: 40px 0;
     &__title {
       @include typography(Montserrat, 600, 20px);
@@ -83,29 +84,30 @@
       color: $mainBgColor;
     }
   }
-  @supports (background-image: $overlay, url("../../images/hero/bg-tablet@1x.webp")) {
-    .hero {
-      background-image: $overlay, url("../../images/hero/bg-tablet@1x.webp");
-      background-size: cover;
-    }
-  }
-  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-device-pixel-ratio: 2), (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
-    .hero {
-      background-image: $overlay, url("../../images/hero/bg-tablet@2x.png");
-      background-size: cover;
-    }
-    @supports (background-image: $overlay, url("../../images/hero/bg-tablet@2x.webp")) {
-      .hero {
-        background-image: $overlay, url("../../images/hero/bg-tablet@2x.webp");
-        background-size: cover;
-      }
-    }
-  }
+  // @supports (background-image: $overlay, url("../../images/hero/bg-6@1x.webp")) {
+  //   .hero {
+  //     background-image: $overlay, url("../../images/hero/bg-6@1x.webp");
+  //     background-size: cover;
+  //   }
+  // }
+  // @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-device-pixel-ratio: 2), (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+  //   .hero {
+  //     background-image: $overlay, url("../../images/hero/bg-6@1x.png");
+  //     background-size: cover;
+  //   }
+  //   @supports (background-image: $overlay, url("../../images/hero/bg-6@1x.webp")) {
+  //     .hero {
+  //       background-image: $overlay, url("../../images/hero/bg-6@1x.webp");
+  //       background-size: cover;
+  //     }
+  //   }
+  // }
 }
 
 @include desktop() {
   .hero {
-     background-image: $overlay, url("../../images/hero/bg-desktop@1x.png");
+    background-image: $overlay, url("../../images/hero/bg-6@1x.jpg");
+
     padding: 100px 0;
     &__title {
       @include typography(Montserrat, 600, 40px);
@@ -124,22 +126,22 @@
       color: $mainBgColor;
     }
   }
-  @supports (background-image: $overlay, url("../../images/hero/bg-desktop@1x.webp")) {
-    .hero {
-      background-image: $overlay, url("../../images/hero/bg-desktop@1x.webp");
-      background-size: cover;
-    }
-  }
-  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-device-pixel-ratio: 2), (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
-    .hero {
-      background-image: $overlay, url("../../images/hero/bg-desktop@2x.png");
-      background-size: cover;
-    }
-    @supports (background-image: $overlay, url("../../images/hero/bg-desktop@2x.webp")) {
-      .hero {
-        background-image: $overlay, url("../../images/hero/bg-desktop@2x.webp");
-        background-size: cover;
-      }
-    }
-  }
+  // @supports (background-image: $overlay, url("../../images/hero/bg-desktop@1x.webp")) {
+  //   .hero {
+  //     background-image: $overlay, url("../../images/hero/bg-desktop@1x.webp");
+  //     background-size: cover;
+  //   }
+  // }
+  // @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-device-pixel-ratio: 2), (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+  //   .hero {
+  //     background-image: $overlay, url("../../images/hero/bg-desktop@2x.png");
+  //     background-size: cover;
+  //   }
+  //   @supports (background-image: $overlay, url("../../images/hero/bg-desktop@2x.webp")) {
+  //     .hero {
+  //       background-image: $overlay, url("../../images/hero/bg-desktop@2x.webp");
+  //       background-size: cover;
+  //     }
+  //   }
+  // }
 }
