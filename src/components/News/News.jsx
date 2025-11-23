@@ -5,6 +5,8 @@ import { ThreeDots } from "react-loader-spinner";
 import styles from "./News.module.scss";
 import { Container } from "../Container/Container";
 
+const API_URL = import.meta.env.VITE_MOKAPI;
+
 export const News = () => {
   const [news, setNews] = useState([]);
   const [visible, setVisible] = useState(4);
@@ -27,13 +29,8 @@ export const News = () => {
     const loadNews = async () => {
       setLoading(true);
       try {
-        const r = await axios.get(`https://newsapi.org/v2/everything`, {
-          params: {
-            q: "wildlife",
-            apiKey: import.meta.env.VITE_NEWS_KEY,
-          },
-        });
-        setNews(r.data.articles);
+        const r = await axios.get(`${API_URL}/news`);
+        setNews(r.data);
       } catch (error) {
         console.error("Error loading news", error);
       } finally {
@@ -63,11 +60,16 @@ export const News = () => {
           <div className={styles.news__list}>
             {news.slice(0, visible).map((item, i) => (
               <div className={styles.news__item} key={i}>
-                <img className={styles.news__img} src={item.urlToImage} alt={item.title} />
+                <img
+                  className={styles.news__img}
+                  src={item.urlToImage}
+                  alt={item.title}
+                />
                 <h3 className={styles.news__description}>{item.title}</h3>
               </div>
             ))}
           </div>
+
           {visible < news.length && (
             <button className={styles.news__btn} onClick={loadMore}>
               See more

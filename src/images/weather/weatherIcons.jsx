@@ -2,20 +2,20 @@ import img01d from "./01d.jpg";
 import img01n from "./01n.jpg";
 import img02d from "./02d.jpg";
 import img02n from "./02n.jpg";
-import img03d from "./03d.jpg";
+import img03d from "./03d.jpeg";
 import img03n from "./03n.jpg";
 import img04d from "./04d.jpg";
 import img04n from "./04n.jpg";
-import img09d from "./09_10d.jpg";
-import img09n from "./09_10n.jpg";
-import img10d from "./09_10d.jpg";
-import img10n from "./09_10n.jpg";
-import img11d from "./11d.jpg";
-import img11n from "./11n.jpg";
-import img13d from "./13d.jpg";
-import img13n from "./13n.jpg";
-import img50d from "./50d.jpg";
-import img50n from "./50n.jpg";
+import img09d from "./09_10d.jpeg";
+import img09n from "./09_10n.jpeg";
+import img10d from "./09_10d.jpeg";
+import img10n from "./09_10n.jpeg";
+import img11d from "./11d.jpeg";
+import img11n from "./11n.jpeg";
+import img13d from "./13d.jpeg";
+import img13n from "./13n.jpeg";
+import img50d from "./50d.jpeg";
+import img50n from "./50n.jpeg";
 
 export const weatherIcons = {
   "01d": img01d, 
