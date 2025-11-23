@@ -1,0 +1,41 @@
+.hourlyButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;         
+  height: 40px;
+//   padding: 0 10px;
+//   background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: width 0.3s ease;
+  flex-direction: row-reverse; 
+
+  .icon {
+    transition: margin-left 0.3s ease;
+  }
+
+  .text {
+    white-space: nowrap;
+    opacity: 0;
+    margin-right: 8px; 
+    transition: opacity 0.3s ease;
+    display: none;
+  }
+
+  &:hover {
+    width: 140px;        
+    justify-content: flex-end; 
+
+    .text {
+      opacity: 1;
+    }
+
+    .icon {
+      margin-left: 0;     
+    }
+  }
+}

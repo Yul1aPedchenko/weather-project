@@ -32,6 +32,8 @@ jobs:
         run: |
           echo "VITE_OPENWEATHER_KEY=${{ secrets.OPENWEATHER_KEY }}" > .env.production
           echo "VITE_MOKAPI=${{ secrets.MOCKAPI_URL }}" >> .env.production
+          echo "VITE_PIXABAY_KEY=${{ secrets.PIXABAY_KEY }}" >> .env.production
+          echo "VITE_NEWS_KEY=${{ secrets.NEWS_KEY }}" >> .env.production
           echo "=== .env.production content ==="
           cat .env.production
 
