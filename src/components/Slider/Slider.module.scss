@@ -1,4 +1,6 @@
-@import "../../scss/utils/mixins.scss";
+@use "../../scss/utils/mixins.scss" as *;
+@use "../../scss/utils/variables.scss" as *;
+
 .slider {
   &__wrapper {
     width: 100%;

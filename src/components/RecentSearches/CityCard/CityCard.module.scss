@@ -1,5 +1,5 @@
-@import "../../../scss/utils/variables.scss";
-@import "../../../scss/utils/mixins.scss";
+@use "../../../scss/utils/mixins.scss" as *;
+@use "../../../scss/utils/variables.scss" as *;
 
 .card {
   margin-right: 25px;
