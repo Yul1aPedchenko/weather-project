@@ -1,49 +1,165 @@
+@import "../../../scss/utils/variables.scss";
+@import "../../../scss/utils/mixins.scss";
+
+.card {
+  margin-right: 25px;
+}
 .top {
   width: 289px;
-  padding: 24px;
   height: 438px;
   background-position: center;
   background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  &__wrap {
+    display: flex;
+    justify-content: space-between;
+    padding: 24px;
+  }
+  &__weather {
+    @include typography(Montserrat, 600, 16px);
+    color: $secondaryTextColor;
+  }
+  &__fav {
+    background-color: transparent;
+    svg {
+      width: 20px;
+      height: 20px;
+      color: $secondaryTextColor;
+      transition: $ts;
+    }
+  }
+  &__fav:hover {
+    svg {
+      color: $likeColor;
+    }
+  }
+  &__btns {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: end;
+  }
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: $accentColor;
+    border: none;
+    border-radius: 6px 0 0 6px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: $ts;
+    gap: 5px;
+    color: $secondaryTextColor;
+  }
+  &__icon {
+    transition: $ts;
+    display: flex;
+  }
+  &__text {
+    white-space: nowrap;
+    opacity: 0;
+    transition: $ts;
+    width: 0px;
+  }
+  &__btn:hover {
+    width: 150px;
+    .top__text {
+      opacity: 1;
+      width: fit-content;
+    }
+    .top__icon {
+      margin-left: 10px;
+      display: none;
+    }
+  }
+  &__info {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    padding: 24px;
+  }
+  &__city {
+    @include typography(Montserrat, 600, 16px);
+  }
+  &__country {
+    @include typography(Montserrat, 500, 16px);
+  }
+  &__add {
+    display: flex;
+    gap: 10px;
+  }
+  &__reload,
+  &__del {
+    background-color: transparent;
+    width: 24px;
+    height: 24px;
+    svg {
+      width: 20px;
+      height: 20px;
+      stroke-width: 1px;
+      transition: $ts;
+    }
+  }
+  &__reload:hover,
+  &__del:hover {
+    svg {
+      color: $accentColor;
+    }
+  }
+}
+.night {
+  .top {
+    &__info {
+      color: $secondaryTextColor;
+    }
+    &__reload,
+    &__del {
+      color: $secondaryTextColor;
+    }
+  }
+}
+.bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px;
+  width: 289px;
+  &__wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  &__time {
+    @include typography(Montserrat, 500, 24px);
+  }
+  &__date {
+    @include typography(Montserrat, 500, 14px);
+    display: flex;
+    gap: 5px;
+  }
+  &__temp {
+    @include typography(Montserrat, 700, 48px);
+    display: flex;
+    p {
+      color: $tempColor;
+    }
+    span {
+      color: $additionalTempColor;
+    }
+  }
 }
 
-// .hourlyButton {
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   width: 40px;         
-//   height: 40px;
-// //   padding: 0 10px;
-// //   background-color: #007bff;
-//   color: white;
-//   border: none;
-//   border-radius: 6px;
-//   cursor: pointer;
-//   overflow: hidden;
-//   transition: width 0.3s ease;
-//   flex-direction: row-reverse; 
-
-//   .icon {
-//     transition: margin-left 0.3s ease;
-//   }
-
-//   .text {
-//     white-space: nowrap;
-//     opacity: 0;
-//     margin-right: 8px; 
-//     transition: opacity 0.3s ease;
-//     display: none;
-//   }
-
-//   &:hover {
-//     width: 140px;        
-//     justify-content: flex-end; 
-
-//     .text {
-//       opacity: 1;
-//     }
-
-//     .icon {
-//       margin-left: 0;     
-//     }
-//   }
-// }
+@include desktop() {
+  .top {
+    width: 392px;
+    height: 438px;
+  }
+  .bottom {
+    width: 392px;
+  }
+}

@@ -21,22 +21,23 @@ export const Hero = () => {
       const cityData = await getWeatherByCity(query);
       console.log(cityData);
       const city = {
+        id: cityData.id,
         name: cityData.name,
         country: cityData.sys.country,
         temp: cityData.main.temp,
         weather: cityData.weather[0].main,
         icon: cityData.weather[0].icon,
         dt: cityData.dt,
-        id: cityData.id,
+        timezone: cityData.timezone,
       };
+
       console.log(user);
       if (user) {
         const filtered = user.recents.filter((c) => c.name.toLowerCase() !== city.name.toLowerCase());
         const newRecents = [city, ...filtered];
-        await addCityToRecents(user.id, newRecents);
+        await addCityToRecents(user.id, city);
         updateUser({ ...user, recents: newRecents });
       } else {
-        console.log("else");
         const filtered = localRecents.filter((c) => c.name.toLowerCase() !== city.name.toLowerCase());
         setLocalRecents([city, ...filtered]);
       }
@@ -57,7 +58,7 @@ export const Hero = () => {
           <form onSubmit={handleSearch} className={styles.hero__form}>
             <input className={styles.hero__input} type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search location..." />
             <button type="submit" className={styles.hero__btn}>
-              <IoSearchOutline/>
+              <IoSearchOutline />
             </button>
           </form>
         </div>

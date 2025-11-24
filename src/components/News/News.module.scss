@@ -2,44 +2,65 @@
 @import "../../scss/utils/mixins.scss";
 
 .news {
-  display: none;
+  &__wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+  &__title {
+    text-align: center;
+    @include typography(Montserrat, 500, 20px);
+  }
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 20px;
+  }
+  &__item {
+    width: 290px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  &__img {
+    height: 150px;
+    border-radius: 10px;
+  }
+  &__btn {
+    @include typography(Montserrat, 500, 16px);
+    padding: 10px 30px;
+    border-radius: 10px;
+    background-color: $accentColor;
+    color: $secondaryTextColor;
+    width: 140px;
+    margin:  0 auto;
+    border: 1px solid $accentColor;
+    transition: $ts;
+  }
+  &__btn:hover {
+    background-color: transparent;
+    color: $mainTextColor;
+  }
 }
 
 @include tablet {
   .news {
     display: block;
-    &__wrap {
-      display: flex;
-      flex-direction: column;
-      gap: 40px;
-    }
-    &__title {
-      text-align: center;
-      @include typography(Montserrat, 500, 20px);
-    }
-    &__list {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-evenly;
-      gap: 20px;
-    }
     &__item {
-      width: 320px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-    &__img {
-      height: 150px;
-      border-radius: 10px;
+      width: 270px;
     }
     &__description {
       overflow: hidden;
       display: -webkit-box;
-      // -webkit-line-clamp: 2;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
       -webkit-box-orient: vertical;
       text-overflow: ellipsis;
       @include typography(Montserrat, 500, 16px);
+    }
+    &__btn {
+      margin: 0;
     }
   }
 }

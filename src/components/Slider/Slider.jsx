@@ -49,9 +49,9 @@ export const Slider = () => {
   }
 
   return (
-    <section>
+    <section className={styles.slider}>
       <Container>
-        <div className={styles.sliderWrapper}>
+        <div className={styles.slider__wrapper}>
           <Swiper
             modules={[EffectCoverflow, Autoplay]}
             effect="coverflow"
@@ -70,10 +70,10 @@ export const Slider = () => {
               modifier: 2.5,
               slideShadows: false,
             }}
-            className={styles.swiper}
+            className={styles.slider__swiper}
           >
             {images.map((src, i) => (
-              <SwiperSlide key={i} className={styles.slide}>
+              <SwiperSlide key={i} className={styles.slider__slide}>
                 <img src={src.full} alt="" loading="lazy" />
               </SwiperSlide>
             ))}
