@@ -14,7 +14,7 @@ export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
   return (
     <>
@@ -43,7 +43,7 @@ export const Header = () => {
             </nav>
             <div className={styles.header__actions}>
               {user ? (
-                <p>{user.username}</p>
+                <p onClick={() => logout()}>{user.username}</p>
               ) : (
                 <button className={styles.header__signup} onClick={() => setIsModalOpen(!isModalOpen)}>
                   Sign Up

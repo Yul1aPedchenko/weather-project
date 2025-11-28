@@ -8,6 +8,30 @@ const API_KEY = import.meta.env.VITE_OPENWEATHER_KEY;
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
+  useEffect(() => {
+    const savedUser = localStorage.getItem("weatherUser");
+    if (savedUser) {
+      try {
+        setUser(JSON.parse(savedUser));
+      } catch (err) {
+        localStorage.removeItem("weatherUser");
+      }
+    }
+  }, []);
+  useEffect(() => {
+    if (user || localRecents.length > 0) {
+      refreshAllRecents();
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem("weatherUser", JSON.stringify(user));
+    } else {
+      localStorage.removeItem("weatherUser");
+    }
+  }, [user]);
+
   const [localRecents, setLocalRecents] = useState(() => {
     try {
       const saved = localStorage.getItem("recents");
@@ -26,13 +50,12 @@ export const AuthProvider = ({ children }) => {
   const login = async ({ email, password }) => {
     try {
       const res = await axios.get(`${API_URL}/users`);
-      const allUsers = res.data;
-
-      const foundUser = allUsers.find((u) => u.email === email && u.password === password);
+      const foundUser = res.data.find((u) => u.email === email && u.password === password);
 
       if (!foundUser) throw new Error("Invalid password or email");
 
-      setUser(foundUser);
+      const { password: _, ...safeUser } = foundUser;
+      setUser(safeUser);
       return true;
     } catch (err) {
       console.log(err);
@@ -43,9 +66,7 @@ export const AuthProvider = ({ children }) => {
   const signup = async ({ username, email, password }) => {
     try {
       const res = await axios.get(`${API_URL}/users`);
-      const allUsers = res.data;
-
-      if (allUsers.some((u) => u.email === email)) throw new Error("User already exists");
+      if (res.data.some((u) => u.email === email)) throw new Error("User already exists");
 
       const newUser = {
         username,
@@ -56,12 +77,19 @@ export const AuthProvider = ({ children }) => {
       };
 
       const createRes = await axios.post(`${API_URL}/users`, newUser);
-      setUser(createRes.data);
+      const { password: _, ...safeUser } = createRes.data;
+
+      setUser(safeUser);
       return true;
     } catch (err) {
       console.log(err);
       return false;
     }
+  };
+
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem("weatherUser");
   };
 
   const removeFromRecents = (id) => {
@@ -96,6 +124,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const res = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city.name}&appid=${API_KEY}&units=metric`);
       const data = res.data;
+      const now = Math.floor(Date.now() / 1000);
 
       const updatedCity = {
         id: data.id,
@@ -104,8 +133,9 @@ export const AuthProvider = ({ children }) => {
         temp: data.main.temp,
         weather: data.weather[0].main,
         icon: data.weather[0].icon,
-        dt: Math.floor(Date.now() / 1000),
+        dt: now,
         timezone: data.timezone,
+        coord: { lat: data.coord.lat, lon: data.coord.lon },
       };
 
       if (user) {
@@ -122,7 +152,6 @@ export const AuthProvider = ({ children }) => {
   };
   const refreshAllRecents = async () => {
     const citiesToRefresh = user ? user.recents : localRecents;
-
     if (!citiesToRefresh.length) return;
 
     const updatedCities = await Promise.all(
@@ -140,6 +169,7 @@ export const AuthProvider = ({ children }) => {
             icon: data.weather[0].icon,
             dt: Math.floor(Date.now() / 1000),
             timezone: data.timezone,
+            coord: { lat: data.coord.lat, lon: data.coord.lon },
           };
         } catch (err) {
           console.log(`Failed to refresh ${city.name}, keeping old data`);
@@ -147,8 +177,17 @@ export const AuthProvider = ({ children }) => {
         }
       })
     );
-  };
 
+    if (user) {
+      setUser({ ...user, recents: updatedCities });
+      await axios.put(`${API_URL}/users/${user.id}`, {
+        ...user,
+        recents: updatedCities,
+      });
+    } else {
+      setLocalRecents(updatedCities);
+    }
+  };
   const addToRecents = async (weatherData) => {
     const cityData = {
       id: weatherData.id,
@@ -179,6 +218,7 @@ export const AuthProvider = ({ children }) => {
         user,
         login,
         signup,
+        logout,
         updateUser: setUser,
         localRecents,
         setLocalRecents,
