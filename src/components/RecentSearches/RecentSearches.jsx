@@ -1,3 +1,5 @@
+import axios from "axios";
+
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -34,15 +36,17 @@ export const RecentSearches = () => {
       return;
     }
 
-    const isFavourite = user.favourites?.some((f) => f.id === city.id) || false;
+    const isFavourite = user.favourites?.some((f) => f.id === city.id) ?? false;
     const newFavourites = isFavourite ? user.favourites.filter((f) => f.id !== city.id) : [...(user.favourites || []), city];
+
+    updateUser({ ...user, favourites: newFavourites });
 
     try {
       await userAPI.update(user.id, { favourites: newFavourites });
-      updateUser({ ...user, favourites: newFavourites });
     } catch (err) {
-      console.error("Failed to update favourites", err);
-      alert("Failed to save favourite");
+      updateUser(user);
+      alert("Failed to save favourite. Try again.");
+      console.error(err);
     }
   };
 

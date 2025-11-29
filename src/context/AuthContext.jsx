@@ -7,6 +7,14 @@ const API_KEY = import.meta.env.VITE_OPENWEATHER_KEY;
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [localRecents, setLocalRecents] = useState(() => {
+    try {
+      const saved = localStorage.getItem("recents");
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
 
   useEffect(() => {
     const savedUser = localStorage.getItem("weatherUser");
@@ -18,11 +26,18 @@ export const AuthProvider = ({ children }) => {
       }
     }
   }, []);
+
   useEffect(() => {
-    if (user || localRecents.length > 0) {
+    if (user) {
       refreshAllRecents();
     }
-  }, [user]);
+  }, [user?.recents]);
+
+  useEffect(() => {
+    if (!user && localRecents.length > 0) {
+      refreshAllRecents();
+    }
+  }, [localRecents]);
 
   useEffect(() => {
     if (user) {
@@ -31,15 +46,6 @@ export const AuthProvider = ({ children }) => {
       localStorage.removeItem("weatherUser");
     }
   }, [user]);
-
-  const [localRecents, setLocalRecents] = useState(() => {
-    try {
-      const saved = localStorage.getItem("recents");
-      return saved ? JSON.parse(saved) : [];
-    } catch {
-      return [];
-    }
-  });
 
   useEffect(() => {
     if (!user) {
@@ -152,15 +158,16 @@ export const AuthProvider = ({ children }) => {
   };
   const refreshAllRecents = async () => {
     const citiesToRefresh = user ? user.recents : localRecents;
-    if (!citiesToRefresh.length) return;
+    if (!citiesToRefresh || citiesToRefresh.length === 0) return;
 
+    let hasChanges = false;
     const updatedCities = await Promise.all(
       citiesToRefresh.map(async (city) => {
         try {
           const res = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city.name}&appid=${API_KEY}&units=metric`);
           const data = res.data;
 
-          return {
+          const newCityData = {
             id: data.id,
             name: data.name,
             country: data.sys.country,
@@ -171,20 +178,27 @@ export const AuthProvider = ({ children }) => {
             timezone: data.timezone,
             coord: { lat: data.coord.lat, lon: data.coord.lon },
           };
+
+          if (JSON.stringify(newCityData) !== JSON.stringify(city)) {
+            hasChanges = true;
+          }
+          return newCityData;
         } catch (err) {
-          console.log(`Failed to refresh ${city.name}, keeping old data`);
+          console.log(`Не вдалося оновити ${city.name}`);
           return city;
         }
       })
     );
 
-    if (user) {
-      setUser({ ...user, recents: updatedCities });
-      await axios.put(`${API_URL}/users/${user.id}`, {
-        ...user,
-        recents: updatedCities,
-      });
-    } else {
+    if (hasChanges && user) {
+      const newUser = { ...user, recents: updatedCities };
+      setUser(newUser);
+      try {
+        await axios.put(`${API_URL}/users/${user.id}`, newUser);
+      } catch (err) {
+        console.error("Не вдалося зберегти recents", err);
+      }
+    } else if (hasChanges && !user) {
       setLocalRecents(updatedCities);
     }
   };
