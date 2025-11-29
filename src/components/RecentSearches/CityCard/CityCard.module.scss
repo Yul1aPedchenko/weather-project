@@ -1,11 +1,11 @@
 @use "../../../scss/utils/mixins.scss" as *;
 @use "../../../scss/utils/variables.scss" as *;
 
-.card {
-  margin-right: 25px;
-}
+// .card {
+//   margin-right: 25px;
+// }
 .top {
-  width: 289px;
+  width: 285px;
   height: 438px;
   background-position: center;
   background-size: cover;
@@ -154,6 +154,11 @@
   }
 }
 
+@include tablet() {
+  .card {
+    margin-right: 25px;
+  }
+}
 @include desktop() {
   .top {
     width: 392px;

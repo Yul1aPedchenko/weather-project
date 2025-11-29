@@ -15,6 +15,8 @@ import { WeeklyForecast } from "../WeeklyForecast/WeeklyForecast";
 import { weatherAPI } from "../../api/weatherAPI";
 import { userAPI } from "../../api/userAPI";
 
+import styles from "./RecentSearches.module.scss";
+
 export const RecentSearches = () => {
   const { user, localRecents, updateUser, refreshAllRecents } = useAuth();
   const { refreshCity, removeCity } = useRecents();
@@ -22,7 +24,7 @@ export const RecentSearches = () => {
   const items = user ? user.recents : localRecents;
   const [activeSection, setActiveSection] = useState({
     city: null,
-    type: null, 
+    type: null,
     forecast: null,
   });
 
@@ -60,10 +62,10 @@ export const RecentSearches = () => {
   };
 
   useEffect(() => {
-  if (items.length > 0) {
-    refreshAllRecents(); 
-  }
-}, []);
+    if (items.length > 0) {
+      refreshAllRecents();
+    }
+  }, []);
 
   if (!items || items.length === 0) {
     return <p style={{ textAlign: "center", padding: "40px" }}>No recent searches</p>;
@@ -72,35 +74,32 @@ export const RecentSearches = () => {
   const settings = {
     dots: true,
     infinite: false,
-    speed: 500,
+    speed: 400,
     slidesToShow: 1,
     slidesToScroll: 1,
     variableWidth: true,
-    arrows: true,
+    centerMode: false,
+    arrows: false,
     swipeToSlide: true,
+    touchThreshold: 10,
+    edgeFriction: 0.35,
   };
 
   return (
-    <Container>
-      <Slider {...settings}>
-        {items.map((city) => (
-          <div key={city.id}>
-            <CityCard
-              city={city}
-              onLike={() => toggleFavourite(city)}
-              onDelete={removeCity}
-              onRefresh={() => refreshCity(city)}
-              onMore={() => toggleSection(city, "more")}
-              onHourly={() => toggleSection(city, "hourly")}
-              onWeekly={() => toggleSection(city, "weekly")}
-            />
-          </div>
-        ))}
-      </Slider>
+    <section>
+      <Container>
+        <Slider {...settings} className={styles.slider}>
+          {items.map((city) => (
+            <div key={city.id}>
+              <CityCard city={city} onLike={() => toggleFavourite(city)} onDelete={removeCity} onRefresh={() => refreshCity(city)} onMore={() => toggleSection(city, "more")} onHourly={() => toggleSection(city, "hourly")} onWeekly={() => toggleSection(city, "weekly")} />
+            </div>
+          ))}
+        </Slider>
 
-      {activeSection.type === "more" && activeSection.forecast && <Metrics city={activeSection.city} forecast={activeSection.forecast} />}
-      {activeSection.type === "hourly" && activeSection.forecast && <HourlyForecast hourly={activeSection.forecast.hourly} timezone={activeSection.city.timezone} />}
-      {activeSection.type === "weekly" && activeSection.forecast && <WeeklyForecast daily={activeSection.forecast.daily} timezone={activeSection.city.timezone} />}
-    </Container>
+        {activeSection.type === "more" && activeSection.forecast && <Metrics city={activeSection.city} forecast={activeSection.forecast} />}
+        {activeSection.type === "hourly" && activeSection.forecast && <HourlyForecast hourly={activeSection.forecast.hourly} timezone={activeSection.city.timezone} />}
+        {activeSection.type === "weekly" && activeSection.forecast && <WeeklyForecast daily={activeSection.forecast.daily} timezone={activeSection.city.timezone} />}
+      </Container>
+    </section>
   );
 };
