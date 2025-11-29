@@ -1,15 +1,14 @@
-@mixin typography($font-family, $font-weight, $font-size, $font-style: _, $line-height: _, $letter-spacing: _, $text-align: _) {
+@mixin typography($font-family, $font-weight, $font-size, $font-style: null, $line-height: null, $letter-spacing: null, $text-align: null) {
   font-family: $font-family;
   font-weight: $font-weight;
   font-size: $font-size;
   font-style: $font-style;
-  leading-trim: NONE;
   line-height: $line-height;
   letter-spacing: $letter-spacing;
   text-align: $text-align;
 }
 
-@mixin flex($justify-content, $align-items: _, $gap: _, $flex-wrap: _, $flex-direction: _) {
+@mixin flex($justify-content, $align-items: null, $gap: null, $flex-wrap: null, $flex-direction: null) {
   display: flex;
   justify-content: $justify-content;
   align-items: $align-items;

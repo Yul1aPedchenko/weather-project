@@ -35,7 +35,7 @@ export const MobileMenu = ({ isMenuOpen, onClose, onClick }) => {
             <div className={styles.mobile__actions}>
               <img className={styles.mobile__user} src={User} alt="user avatar" />
               {user ? (
-                <p>{user.username}</p>
+                <p onClick={() => logout()}>{user.username}</p>
               ) : (
                 <button className={styles.mobile__signup} onClick={onClick}>
                   Sign Up

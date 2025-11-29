@@ -1,8 +1,5 @@
 import { useState } from "react";
-import { useAuth } from "../../context/AuthContext";
-import { getWeatherByCity } from "../../api/weatherAPI";
-import { addCityToRecents } from "../../api/userAPI";
-
+import { useRecents } from "../../hooks/useRecents";
 import { Container } from "../Container/Container";
 import { CurrentDate } from "./CurrentDate/CurrentDate";
 import styles from "./Hero.module.scss";
@@ -10,41 +7,16 @@ import { IoSearchOutline } from "react-icons/io5";
 
 export const Hero = () => {
   const [query, setQuery] = useState("");
-  const { user, updateUser, localRecents, setLocalRecents } = useAuth();
+  const { addCity } = useRecents();
 
   const handleSearch = async (e) => {
     e.preventDefault();
-
     if (!query.trim()) return;
 
     try {
-      const cityData = await getWeatherByCity(query);
-      console.log(cityData);
-      const city = {
-        id: cityData.id,
-        name: cityData.name,
-        country: cityData.sys.country,
-        temp: cityData.main.temp,
-        weather: cityData.weather[0].main,
-        icon: cityData.weather[0].icon,
-        dt: cityData.dt,
-        timezone: cityData.timezone,
-      };
-
-      console.log(user);
-      if (user) {
-        const filtered = user.recents.filter((c) => c.name.toLowerCase() !== city.name.toLowerCase());
-        const newRecents = [city, ...filtered];
-        await addCityToRecents(user.id, city);
-        updateUser({ ...user, recents: newRecents });
-      } else {
-        const filtered = localRecents.filter((c) => c.name.toLowerCase() !== city.name.toLowerCase());
-        setLocalRecents([city, ...filtered]);
-      }
-
+      await addCity(query);
       setQuery("");
-    } catch (error) {
-      console.log("City not found", error);
+    } catch (err) {
       alert("City not found");
     }
   };
